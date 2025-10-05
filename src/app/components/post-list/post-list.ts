@@ -33,11 +33,15 @@ export class PostList implements OnInit {
     this.categories = this.ps.getCategory();
   }
 
-  // Nota
   filter(cat?: PostCategory) {
+    // Funzione che filtra i post in base alla categoria
+    // Il parametro cat è facoltativo (?:) e di tipo PostCategory
+
     if (cat) {
+      // Se viene passata una categoria, prendo solo i post di quella categoria
       this.posts = this.ps.getPostbyCategory(cat);
     } else {
+      // Se non passo nessuna categoria, mostro tutti i post
       this.posts = this.ps.getPosts();
     }
   }

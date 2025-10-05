@@ -119,7 +119,7 @@ export class PostsService {
     // Qui normalmente ci sarebbe una richiesta AJAX/HTTP (es. tramite HttpClient) e il metodo
     // ritornerebbe dati asincroni. Per semplicità usiamo dati statici in memoria.
 
-    // Nota
+    // Imposta la categoria selezionata come "undefined" per indicare che non è attiva alcuna categoria
     this.selectedCategory = undefined;
 
     return this.data.posts;
@@ -145,7 +145,7 @@ export class PostsService {
     // this.data.posts → è l’array di tutti i post
     // .filter(...) → crea un nuovo array con gli elementi che rispettano la condizione
 
-    // Nota
+    // Salva la categoria selezionata in modo che il servizio sappia quale categoria è attiva
     this.selectedCategory = category;
 
     return this.data.posts.filter(x => x.category == category.id);
@@ -155,27 +155,27 @@ export class PostsService {
     // il post viene tenuto solo se x.category === categoryId
   }
 
-  // Nota
   aggiungiAPreferiti(post: Post) {
     // Qui normalmente ci sarebbe una richiesta ajax per recuperare posts tra i preferiti SUL SERVER
 
-    // Nota
+    // Controlla se il post non è già nei preferiti con .includes() (che verifica la presenza di un elemento nell'array)
     if (!this.preferiti.includes(post)) {
       this.preferiti.push(post);
     }
   }
 
-  // Nota
+  // Crea un nuovo array di preferiti mantenendo solo gli elementi diversi dal post da rimuovere
   rimuoviDaPreferiti(post: Post) {
-    // Notaa
     //Alternativa con filter
     this.preferiti = this.preferiti.filter(p => p != post);
+
 
     /** 
      * // Alternativa con .find
      * let p = this.preferiti.find(x => x.id == post);
-     * // Nota
      * 
+     * 
+     * // Controlla se il post esiste e, se sì, lo rimuove dall'array con splice()
      * if(p){
      *  this.preferiti.splice(this.preferiti.indecOf(p), 1);
      * }
@@ -183,7 +183,7 @@ export class PostsService {
 
   }
 
-  // Nota
+  // Svuota completamente l'array assegnandogli un nuovo array vuoto
   svuotaPreferiti() {
     this.preferiti = [];
   }
