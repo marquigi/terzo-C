@@ -105,6 +105,10 @@ export class PostsService {
     ]
   }
 
+  selectedCategory?: PostCategory;
+
+  preferiti: Post[] = [];
+
   constructor() { }
 
   /**
@@ -114,6 +118,10 @@ export class PostsService {
   getPosts(): Post[] {
     // Qui normalmente ci sarebbe una richiesta AJAX/HTTP (es. tramite HttpClient) e il metodo
     // ritornerebbe dati asincroni. Per semplicità usiamo dati statici in memoria.
+
+    // Nota
+    this.selectedCategory = undefined;
+
     return this.data.posts;
   }
 
@@ -131,13 +139,52 @@ export class PostsService {
 
   // Funzione che come parametro è di tipo "PostCategory" significa che quando chiami questa funzione devi passare un oggetto con la forma di PostCategory
   getPostbyCategory(category: PostCategory) {
+    // Qui normalmente ci sarebbe una richiesta ajax per recuperare posts filtrati SUL SERVER
+
     // this.data → è l’oggetto "Blog" che contiene posts e categorie
     // this.data.posts → è l’array di tutti i post
     // .filter(...) → crea un nuovo array con gli elementi che rispettano la condizione
+
+    // Nota
+    this.selectedCategory = category;
+
     return this.data.posts.filter(x => x.category == category.id);
     // x è un singolo post mentre filter scorre l’array
     // x.category è la categoria di quel post
     // categoryId è la stringa passata come parametro
     // il post viene tenuto solo se x.category === categoryId
+  }
+
+  // Nota
+  aggiungiAPreferiti(post: Post) {
+    // Qui normalmente ci sarebbe una richiesta ajax per recuperare posts tra i preferiti SUL SERVER
+
+    // Nota
+    if (!this.preferiti.includes(post)) {
+      this.preferiti.push(post);
+    }
+  }
+
+  // Nota
+  rimuoviDaPreferiti(post: Post) {
+    // Notaa
+    //Alternativa con filter
+    this.preferiti = this.preferiti.filter(p => p != post);
+
+    /** 
+     * // Alternativa con .find
+     * let p = this.preferiti.find(x => x.id == post);
+     * // Nota
+     * 
+     * if(p){
+     *  this.preferiti.splice(this.preferiti.indecOf(p), 1);
+     * }
+    */
+
+  }
+
+  // Nota
+  svuotaPreferiti() {
+    this.preferiti = [];
   }
 }
