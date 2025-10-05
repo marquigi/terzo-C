@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { PostsService } from '../../services/posts-service';
 import { Post, PostCategory } from '../../models/posts';
 import { PostDetail } from "../post-detail/post-detail";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-post-list',
-  imports: [PostDetail],
+  imports: [PostDetail, CommonModule],
   templateUrl: './post-list.html',
   styleUrl: './post-list.css'
 })
@@ -30,5 +31,14 @@ export class PostList implements OnInit {
     this.posts = this.ps.getPosts();
     // Carico le categorie dal servizio e li salvo nella "categories" "posts"
     this.categories = this.ps.getCategory();
+  }
+
+  // Nota
+  filter(cat?: PostCategory) {
+    if (cat) {
+      this.posts = this.ps.getPostbyCategory(cat);
+    } else {
+      this.posts = this.ps.getPosts();
+    }
   }
 }

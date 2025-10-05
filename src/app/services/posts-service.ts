@@ -131,11 +131,10 @@ export class PostsService {
 
   // Funzione che come parametro è di tipo "PostCategory" significa che quando chiami questa funzione devi passare un oggetto con la forma di PostCategory
   getPostbyCategory(category: PostCategory) {
-    return this.data.posts.filter
-      // this.data → è l’oggetto "Blog" che contiene posts e categorie
-      // this.data.posts → è l’array di tutti i post
-      // .filter(...) → crea un nuovo array con gli elementi che rispettano la condizione
-      (x => x.category == category.id);
+    // this.data → è l’oggetto "Blog" che contiene posts e categorie
+    // this.data.posts → è l’array di tutti i post
+    // .filter(...) → crea un nuovo array con gli elementi che rispettano la condizione
+    return this.data.posts.filter(x => x.category == category.id);
     // x è un singolo post mentre filter scorre l’array
     // x.category è la categoria di quel post
     // categoryId è la stringa passata come parametro
