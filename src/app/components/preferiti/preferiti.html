@@ -1,0 +1,24 @@
+<h2>Preferiti</h2> <!-- Titolo della sezione che indica la lista dei preferiti -->
+
+<ul class="list-group"> <!-- Lista non ordinata con classe Bootstrap per lo stile -->
+    @for (p of ps.preferiti; track $index) {
+    <!-- Ciclo Angular che scorre ogni elemento 'p' dell’array 'ps.preferiti'. 
+             'track $index' serve per ottimizzare le prestazioni usando l’indice come identificatore unico -->
+    <li class="list-group-item"> <!-- Ogni elemento della lista mostra un singolo preferito -->
+        {{ p.title }} <!-- Interpolazione: mostra il titolo dell’oggetto 'p' -->
+        <button type="button" class="btn btn-close" (click)="ps.rimuoviDaPreferiti(p)">
+            <!-- Bottone che, al click, richiama la funzione 'rimuoviDaPreferiti(p)' 
+                 nel servizio 'ps' per togliere l’elemento corrente dai preferiti -->
+        </button>
+    </li>
+    }
+</ul>
+
+@if (ps.preferiti.length > 0) {
+<!-- Direttiva di controllo Angular: mostra il bottone "Svuota" solo se la lista dei preferiti non è vuota -->
+<button class="btn btn-danger" type="button" (click)="ps.svuotaPreferiti()">
+    <!-- Bottone che, al click, esegue la funzione 'svuotaPreferiti()' nel servizio 'ps' 
+         per rimuovere tutti gli elementi dai preferiti -->
+    Svuota
+</button>
+}
